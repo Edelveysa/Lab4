@@ -13,14 +13,6 @@ public class EventLibrary implements EventManage {
         this.witnesses = witnesses;
     }
 
-    public String[] getEvents() {
-        return events;
-    }
-
-    public Kid[] getWitnesses() {
-        return witnesses;
-    }
-
     @Override
     public void addEvent(String remembrance) {
         boolean addIn = false;
@@ -74,15 +66,6 @@ public class EventLibrary implements EventManage {
                     }
                 }
         }
-        if(remembrance.equals("Дракон Стоголовый решил съесть малышей")){
-            for(int i = 0; i<witnesses.length; i++){
-                if (witnesses[i] instanceof Citizen){
-                    Citizen citizen = (Citizen)witnesses[i];
-                    citizen.update(remembrance);
-                }
-            }
-        }
-
 
     }
 
