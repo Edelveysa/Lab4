@@ -40,7 +40,8 @@ public class Citizen extends Kid {
         if (o == null || getClass() != o.getClass()) return false;
         Citizen citizen = (Citizen) o;
         return getName().equals(citizen.getName()) &&
-                getLocation() == citizen.getLocation();    }
+                getLocation() == citizen.getLocation();    
+    }
 
     @Override
     public int hashCode() {
