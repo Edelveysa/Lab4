@@ -24,7 +24,7 @@ public class Story {
         };
         Kid[] witnesses = {vintik, shpuntik, citizen, bublick, znayka};
         EventLibrary eventLibrary = new EventLibrary(witnesses);
-        eventLibrary.addEvent(able.createLegend());
+        citizen.update(able.createLegend());
         OnceStoryObject balloon = new OnceStoryObject(){
             @Override
             public void doRemembrance() {
