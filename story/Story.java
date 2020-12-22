@@ -22,21 +22,20 @@ public class Story {
                 return null;
             }
         };
-        citizen.update(able.createLegend());
         Kid[] witnesses = {vintik, shpuntik, citizen, bublick, znayka};
         EventLibrary eventLibrary = new EventLibrary(witnesses);
+        eventLibrary.addEvent(able.createLegend());
         OnceStoryObject balloon = new OnceStoryObject(){
             @Override
-            public void setRemembrance() {
+            public void doRemembrance() {
                 super.setRemembrance("Шар разбился в " + Location.GREENTOWN.getLocation());
                 eventLibrary.addEvent(super.getRemembrance());
                 znayka.update("Прыжок веры!");
-
             }
 
         };
 
-        balloon.setRemembrance();
+        balloon.doRemembrance();
         vintik.setLocation(Location.GREENTOWN);
         shpuntik.setLocation(Location.GREENTOWN);
         Kid[] passengers = {vintik, shpuntik};
