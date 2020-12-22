@@ -1,7 +1,7 @@
 package kids;
 
 import enums.Location;
-import exceptions.NoLegendError;
+import exceptions.NoLegendException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -20,13 +20,13 @@ public class Citizen extends Kid {
             for(int i = 0; i<tmp.length; i++){
                 String s = tmp[i];
                 if (s == "Гвоздик побывал в Змеевка") {
-                    throw new NoLegendError();
+                    throw new NoLegendException();
                 }
 
             }
             return true;
 
-        }catch (NoLegendError noLegendError){
+        }catch (NoLegendException noLegendException){
             return false;
         }
     }
