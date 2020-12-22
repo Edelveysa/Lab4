@@ -1,6 +1,5 @@
 package events;
 
-import enums.Location;
 import interfaces.EventManage;
 import kids.*;
 
@@ -74,6 +73,14 @@ public class EventLibrary implements EventManage {
                         mechanic.update(remembrance);
                     }
                 }
+        }
+        if(remembrance.equals("Дракон Стоголовый решил съесть малышей")){
+            for(int i = 0; i<witnesses.length; i++){
+                if (witnesses[i] instanceof Citizen){
+                    Citizen citizen = (Citizen)witnesses[i];
+                    citizen.update(remembrance);
+                }
+            }
         }
 
 
