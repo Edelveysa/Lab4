@@ -19,7 +19,7 @@ public class Story {
                 Legend legend = new Legend();
                 return legend.getRemembrance();
             }else {
-                return null;
+                return "Легенд нет.";
             }
         };
         Kid[] witnesses = {vintik, shpuntik, citizen, bublick, znayka};
