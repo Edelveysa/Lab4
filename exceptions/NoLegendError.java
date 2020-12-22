@@ -1,8 +1,8 @@
 package exceptions;
 
-public class NoLegendError extends Error{
+public class NoLegendException extends Exception{
 
-    public NoLegendError(){
+    public NoLegendException(){
         super("Nobody know a legend about Dragon.");
     }
 
