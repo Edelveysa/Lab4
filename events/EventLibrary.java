@@ -2,72 +2,52 @@ package events;
 
 import interfaces.EventManage;
 import kids.*;
+import story.OnceStoryObject;
+import java.util.ArrayList;
 
 
 public class EventLibrary implements EventManage {
-    private Kid[] witnesses;
-    private String[] events;
+    private ArrayList<Kid> subscribers = new ArrayList<Kid>();
 
     public EventLibrary(Kid[] witnesses){
-        this.events = new String[MEMORY_SIZE];
-        this.witnesses = witnesses;
-    }
-
-    @Override
-    public void addEvent(String remembrance) {
-        boolean addIn = false;
-        for(int i = 0; i<MEMORY_SIZE; i++) {
-            if (events[i] == null) {
-                events[i] = remembrance;
-                addIn = true;
-                System.out.println("Добавлено новое воспоминание: " + remembrance);
-                notifyEvent(remembrance, this.witnesses);
-                break;
-            }
-        }
-        if (addIn == false){
-            System.out.println("Память заполнена");
+        for(int i = 0; i< witnesses.length; i++){
+            subscribers.add(witnesses[i]);
         }
     }
 
     @Override
-    public boolean checkInEvents(String remembrance) {
-        for (int i = 0; i<MEMORY_SIZE; i++){
-            if(events[i] != null && events[i].equals(remembrance)){
-                return true;
-            }
+    public void addEvent(Object o){
+        if (o instanceof OnceStoryObject.Balloon){
+            subscribers
+                    .stream()
+                    .filter(kid -> ((kid instanceof Citizen) || (kid instanceof Znayka) || (kid instanceof Mechanic)))
+                    .forEach(sub -> sub.update(o));
         }
+        if (o instanceof Mechanic){
+            subscribers
+                    .stream()
+                    .filter(kid -> kid instanceof Citizen)
+                    .forEach(sub -> sub.update(o));
+        }
+    }
+
+    @Override
+    public boolean checkEventIn(Object event, Object witness){
+            if (witness instanceof Citizen && event instanceof Mechanic){
+                Citizen citizen = (Citizen) witness;
+                Mechanic mechanic = (Mechanic) event;
+                if(citizen.getMyMemory().indexOf(mechanic) != -1){
+                    return true;
+                };
+            }
+            if (witness instanceof Citizen && event instanceof OnceStoryObject.Balloon){
+                Citizen citizen = (Citizen) witness;
+                OnceStoryObject.Balloon balloon = (OnceStoryObject.Balloon) event;
+                if(citizen.getMyMemory().indexOf(balloon) != -1){
+                    return true;
+                }
+            }
+
         return false;
     }
-
-    @Override
-    public void notifyEvent(String remembrance, Kid[] witnesses) {
-        if(remembrance.equals("Шар разбился в Зеленый город")) {
-            for (int i = 0; i < witnesses.length; i++) {
-                if (witnesses[i] instanceof Citizen) {
-                    Citizen citizen = (Citizen) witnesses[i];
-                    citizen.update(remembrance);
-                }
-                if (witnesses[i] instanceof Znayka) {
-                    Znayka znayka = (Znayka) witnesses[i];
-                    znayka.update(remembrance);
-                }
-            }
-        }
-        if(remembrance.equals("Винтик побывал в Змеевка") || remembrance.equals("Шпунтик побывал в Змеевка")){
-                for(int i = 0; i<witnesses.length; i++){
-                    if (witnesses[i] instanceof Citizen){
-                        Citizen citizen = (Citizen)witnesses[i];
-                        citizen.update(remembrance);
-                    }   
-                    if(witnesses[i] instanceof Mechanic){
-                        Mechanic mechanic = (Mechanic)witnesses[i];
-                        mechanic.update(remembrance);
-                    }
-                }
-        }
-
-    }
-
-
 }
