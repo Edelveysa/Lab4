@@ -1,10 +1,9 @@
 package kids;
 
 import enums.Location;
+import exceptions.InvalidParameterException;
 import exceptions.NoLegendException;
 import interfaces.AbleToUpdate;
-import interfaces.EventManage;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -15,15 +14,26 @@ public abstract class Kid implements AbleToUpdate{
     private String[] memory;
     private ArrayList<Object> myMemory = new ArrayList<Object>();
 
-    public Kid(String name, Location location){
-        this.name = name;
-        this.location = location;
-        this.memory = new String[EventManage.MEMORY_SIZE];
+    public Kid(String name, Location location)throws InvalidParameterException{
+        if(name == null || name == ""){
+            throw new InvalidParameterException("Вы забыли задать имя");
+        }else{
+            this.name = name;
+        }
+        if(location == Location.NONE){
+            throw new InvalidParameterException("Вы забыли указать родной город");
+        }else {
+            this.location = location;
+        }
     }
 
     @Override
-    public void update(Object o) {
-        this.myMemory.add(o);
+    public void update(Object o) throws InvalidParameterException{
+        if(o == null){
+            throw new InvalidParameterException("Записываем в память пустоту...");
+        }else {
+            this.myMemory.add(o);
+        }
     }
 
 
@@ -34,8 +44,12 @@ public abstract class Kid implements AbleToUpdate{
         return location;
     }
     public void setLocation(Location location) {
-        this.location = location;
-        System.out.println(getName() + " оказался в " + location.getLocation());
+        if(location == null) {
+            this.location = Location.NONE;
+        } else {
+            this.location = location;
+            System.out.println(getName() + " оказался в " + location.getLocation());
+        }
     }
 
     public ArrayList<Object> getMyMemory() {
@@ -46,7 +60,10 @@ public abstract class Kid implements AbleToUpdate{
         return memory;
     }
 
-    public boolean believeInLegend(Kid kid){
+    public boolean believeInLegend(Kid kid) throws InvalidParameterException{
+        if(kid == null){
+            throw new InvalidParameterException("Нет человека для веры в легенду");
+        }
         ArrayList<Object> temp = getMyMemory();
         Gvozdik gvozdik = (Gvozdik) kid;
         try{
