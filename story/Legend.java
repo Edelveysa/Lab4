@@ -5,7 +5,6 @@ public class Legend{
 
     public Legend(){
         Dragon dragon = new Dragon();
-        setRemembrance(dragon.getName() + ' ' + dragon.getAmountOfHeads() + " решил съесть малышей");
     }
 
     public Legend(String remembrance){
@@ -25,22 +24,6 @@ public class Legend{
             return name;
         }
 
-        public int getNumberOfHeads() {
-            return numberOfHeads;
-        }
-
-        public String getAmountOfHeads(){
-            return getNumberOfHeads() == 100 ? "Стоголовый" : "Многоголовый";
-        }
-
-
     }
 
-    public void setRemembrance(String remembrance) {
-        this.remembrance = remembrance;
-    }
-
-    public String getRemembrance() {
-        return remembrance;
-    }
 }
