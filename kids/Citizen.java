@@ -35,7 +35,4 @@ public class Citizen extends Kid{
                 ", memory=" + Arrays.toString(getAllMemory()) +
                 '}';
     }
-
-
-
 }
