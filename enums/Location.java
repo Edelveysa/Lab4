@@ -3,7 +3,8 @@ package enums;
 public enum Location {
     ZMEEVKA("Змеевка"),
     FLOWERTOWN("Цветочный город"),
-    GREENTOWN("Зеленый город");
+    GREENTOWN("Зеленый город"),
+    NONE("Откуда-то");
 
     private String location;
 
