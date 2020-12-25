@@ -1,5 +1,6 @@
 package interfaces;
 
 public interface AbleToUpdate {
-    void update(String remembrance);
+    void update(Object event);
+
 }
