@@ -3,6 +3,7 @@ package kids;
 import enums.Location;
 import events.EventLibrary;
 import exceptions.BadEndException;
+import exceptions.InvalidParameterException;
 import interfaces.AbleToFind;
 import story.Legend;
 
@@ -42,23 +43,15 @@ public final class Znayka extends Kid implements AbleToFind {
 
     }
 
-    public void find(Citizen citizen, EventLibrary eventLibrary) throws BadEndException, NullPointerException {
-
+    public void find(Citizen citizen, EventLibrary eventLibrary) throws BadEndException {
         find();
         boolean[] memoryFind = {false, false, false};
         int j = 0;
         Object[] temp = getMyMemory().toArray();
         for(int i = 0; i< temp.length; i++){
-            try{
             if(eventLibrary.checkEventIn(temp[i], citizen)){
                 memoryFind[j]=true;
                 j++;
-            }
-            }catch (NullPointerException nullPointerException){
-                if(eventLibrary.checkEventIn(new Legend(), citizen)){
-                    memoryFind[j]=true;
-                    j++;
-                }
             }
         }
         findResult(memoryFind);
