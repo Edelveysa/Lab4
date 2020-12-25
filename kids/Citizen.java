@@ -1,11 +1,10 @@
 package kids;
 
 import enums.Location;
-import exceptions.NoLegendException;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Citizen extends Kid {
+public class Citizen extends Kid{
 
     public Citizen() {
         super("Жители Змеевки", Location.ZMEEVKA);
@@ -14,25 +13,6 @@ public class Citizen extends Kid {
         super(name, location);
     }
 
-    public boolean believeInLegend(){
-        String[] tmp = getAllMemory();
-        try {
-            for(int i = 0; i<tmp.length; i++){
-                String s = tmp[i];
-                if (s == "Гвоздик побывал в Змеевка") {
-                    throw new NoLegendException();
-                }
-
-            }
-            return true;
-
-        }catch (NoLegendException noLegendException){
-            return false;
-        }
-    }
-
-
-
 
     @Override
     public boolean equals(Object o) {
@@ -40,8 +20,7 @@ public class Citizen extends Kid {
         if (o == null || getClass() != o.getClass()) return false;
         Citizen citizen = (Citizen) o;
         return getName().equals(citizen.getName()) &&
-                getLocation() == citizen.getLocation();    
-    }
+                getLocation() == citizen.getLocation();    }
 
     @Override
     public int hashCode() {
