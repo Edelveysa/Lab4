@@ -2,8 +2,8 @@ package kids;
 
 import enums.Location;
 import events.EventLibrary;
-
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public final class Bublick extends Citizen {
     private String remembrance = " побывал в " + Location.ZMEEVKA.getLocation();
@@ -13,15 +13,14 @@ public final class Bublick extends Citizen {
     }
 
     public void driveWith(Kid[] passengers, EventLibrary eventLibrary){
-        Mechanic vintik = (Mechanic) passengers[0];
-        Mechanic shpuntik = (Mechanic) passengers[1];
-        vintik.setLocation(Location.ZMEEVKA);
-        shpuntik.setLocation(Location.ZMEEVKA);
+        Stream.of(passengers)
+                .forEach(mech -> {
+                    Mechanic mechanic = (Mechanic) mech;
+                    mechanic.setLocation(Location.ZMEEVKA);
+                    mechanic.find();
+                    eventLibrary.addEvent(mechanic);
+                });
         setLocation(Location.ZMEEVKA);
-        vintik.find();
-        shpuntik.find();
-        eventLibrary.addEvent(vintik.getName() + getRemembrance());
-        eventLibrary.addEvent(shpuntik.getName() + getRemembrance());
     }
 
     public String getRemembrance() {
