@@ -4,6 +4,7 @@ import enums.Location;
 import events.EventLibrary;
 import exceptions.BadEndException;
 import interfaces.AbleToCreateLegend;
+import interfaces.AbleToUpdate;
 import kids.*;
 
 public class Story {
@@ -13,29 +14,31 @@ public class Story {
         Mechanic shpuntik = new Mechanic("Шпунтик", Location.FLOWERTOWN);
         Citizen citizen = new Citizen();
         Znayka znayka = new Znayka();
+        AbleToUpdate ableToUpdate = event -> {
+            znayka.update(event);
+            znayka.update(vintik);
+            znayka.update(shpuntik);
+        };
         Bublick bublick = new Bublick();
-        AbleToCreateLegend able = () -> {
-            if(citizen.believeInLegend()){
+        AbleToCreateLegend ableToCreateLegend = () -> {
+            if(citizen.believeInLegend(new Gvozdik())){
                 Legend legend = new Legend();
-                return legend.getRemembrance();
+                return legend;
             }else {
-                return "Легенд нет.";
+                return new Legend("Бесполезная легенда.");
             }
         };
         Kid[] witnesses = {vintik, shpuntik, citizen, bublick, znayka};
         EventLibrary eventLibrary = new EventLibrary(witnesses);
-        citizen.update(able.createLegend());
+        citizen.update(ableToCreateLegend.createLegend());
         OnceStoryObject balloon = new OnceStoryObject(){
             @Override
-            public void doRemembrance() {
-                super.setRemembrance("Шар разбился в " + Location.GREENTOWN.getLocation());
-                eventLibrary.addEvent(super.getRemembrance());
-                znayka.update("Прыжок веры!");
+            public Object getRemembrance(){
+                return new OnceStoryObject.Balloon();
             }
-
         };
-
-        balloon.doRemembrance();
+        ableToUpdate.update(balloon);
+        eventLibrary.addEvent(balloon.getRemembrance());
         vintik.setLocation(Location.GREENTOWN);
         shpuntik.setLocation(Location.GREENTOWN);
         Kid[] passengers = {vintik, shpuntik};
