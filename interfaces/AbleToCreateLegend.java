@@ -1,5 +1,7 @@
 package interfaces;
 
+import story.Legend;
+
 public interface AbleToCreateLegend {
-    String createLegend();
+    Legend createLegend();
 }
