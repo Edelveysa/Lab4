@@ -44,4 +44,5 @@ public class Mechanic extends Kid implements AbleToFind {
     public int hashCode() {
         return Objects.hash(getName(), getLocation());
     }
+    
 }
