@@ -2,6 +2,9 @@ package kids;
 
 import enums.Location;
 import events.EventLibrary;
+import exceptions.InvalidParameterException;
+
+import java.security.InvalidAlgorithmParameterException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -12,7 +15,13 @@ public final class Bublick extends Citizen {
         super("Бублик", Location.GREENTOWN);
     }
 
-    public void driveWith(Kid[] passengers, EventLibrary eventLibrary){
+    public void driveWith(Kid[] passengers, EventLibrary eventLibrary)throws InvalidParameterException{
+        Stream.of(passengers)
+                .forEach(pass -> {
+                    if(pass == null){throw new InvalidParameterException("Попытка отвезти несуществующего пассажира.");
+                    };
+                });
+
         Stream.of(passengers)
                 .forEach(mech -> {
                     Mechanic mechanic = (Mechanic) mech;
