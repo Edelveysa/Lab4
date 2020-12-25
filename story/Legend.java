@@ -8,6 +8,10 @@ public class Legend{
         setRemembrance(dragon.getName() + ' ' + dragon.getAmountOfHeads() + " решил съесть малышей");
     }
 
+    public Legend(String remembrance){
+        this.remembrance = remembrance;
+    }
+
     public class Dragon {
         private String name;
         private int numberOfHeads;
