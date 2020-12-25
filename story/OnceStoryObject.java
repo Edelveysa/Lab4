@@ -1,15 +1,12 @@
 package story;
 
 public abstract class OnceStoryObject {
-    private String remembrance;
+    public abstract Object getRemembrance();
 
-    public String getRemembrance(){
-        return remembrance;
+    public class Balloon{
+        String description;
+        Balloon(){
+            this.description = "Лучший шар для полетов.";
+        }
     }
-
-    public void setRemembrance(String remembrance) {
-        this.remembrance = remembrance;
-    }
-
-    public abstract void doRemembrance();
 }
