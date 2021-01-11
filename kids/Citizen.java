@@ -1,6 +1,11 @@
 package kids;
 
 import enums.Location;
+import interfaces.AbleToUpdate;
+import interfaces.EventManage;
+import story.Legend;
+import story.OnceStoryObject;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -11,6 +16,15 @@ public class Citizen extends Kid{
     }
     public Citizen(String name, Location location){
         super(name, location);
+        AbleToUpdate able = new AbleToUpdate() {
+            @Override
+            public void update(Object event) {
+                if(event instanceof Mechanic || event instanceof OnceStoryObject.Balloon || event instanceof Legend || event instanceof Gvozdik) {
+                    Citizen.this.getMyMemory().add(event);
+                }
+            }
+        };
+        EventManage.addSubscriber(able);
     }
 
 
@@ -20,7 +34,8 @@ public class Citizen extends Kid{
         if (o == null || getClass() != o.getClass()) return false;
         Citizen citizen = (Citizen) o;
         return getName().equals(citizen.getName()) &&
-                getLocation() == citizen.getLocation();    }
+                getLocation() == citizen.getLocation();
+    }
 
     @Override
     public int hashCode() {
@@ -35,4 +50,7 @@ public class Citizen extends Kid{
                 ", memory=" + Arrays.toString(getAllMemory()) +
                 '}';
     }
+
+
+
 }
