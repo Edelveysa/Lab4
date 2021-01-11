@@ -1,10 +1,10 @@
 package kids;
 
 import enums.Location;
-import events.EventLibrary;
 import exceptions.InvalidParameterException;
+import interfaces.AbleToUpdate;
+import interfaces.EventManage;
 
-import java.security.InvalidAlgorithmParameterException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -13,9 +13,19 @@ public final class Bublick extends Citizen {
 
     public Bublick() {
         super("Бублик", Location.GREENTOWN);
+        AbleToUpdate able = new AbleToUpdate() {
+            @Override
+            public void update(Object event) {
+                if(event instanceof Mechanic){
+                    Bublick.this.getMyMemory().add(event);
+                }
+            }
+        };
+        EventManage.addSubscriber(able);
     }
 
-    public void driveWith(Kid[] passengers, EventLibrary eventLibrary)throws InvalidParameterException{
+    public void driveWith(Kid[] passengers)throws InvalidParameterException{
+        setLocation(Location.ZMEEVKA);
         Stream.of(passengers)
                 .forEach(pass -> {
                     if(pass == null){throw new InvalidParameterException("Попытка отвезти несуществующего пассажира.");
@@ -27,9 +37,9 @@ public final class Bublick extends Citizen {
                     Mechanic mechanic = (Mechanic) mech;
                     mechanic.setLocation(Location.ZMEEVKA);
                     mechanic.find();
-                    eventLibrary.addEvent(mechanic);
+                    EventManage.addEvent(mechanic);
                 });
-        setLocation(Location.ZMEEVKA);
+
     }
 
     public String getRemembrance() {
