@@ -3,7 +3,7 @@ package exceptions;
 public class NoLegendException extends RuntimeException{
 
     public NoLegendException(){
-        super("Nobody know a legend about Dragon.");
+        super("Никто не слышал легенду о драконе.");
     }
 
 }
