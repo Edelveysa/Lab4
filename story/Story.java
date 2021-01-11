@@ -1,10 +1,9 @@
 package story;
 
 import enums.Location;
-import events.EventLibrary;
 import exceptions.BadEndException;
 import interfaces.AbleToCreateLegend;
-import interfaces.AbleToUpdate;
+import events.EventManage;
 import kids.*;
 
 public class Story {
@@ -14,36 +13,25 @@ public class Story {
         Mechanic shpuntik = new Mechanic("Шпунтик", Location.FLOWERTOWN);
         Citizen citizen = new Citizen();
         Znayka znayka = new Znayka();
-        AbleToUpdate ableToUpdate = event -> {
-            znayka.update(event);
-            znayka.update(vintik);
-            znayka.update(shpuntik);
-        };
         Bublick bublick = new Bublick();
         AbleToCreateLegend ableToCreateLegend = () -> {
             if(citizen.believeInLegend(new Gvozdik())){
-                Legend legend = new Legend();
-                return legend;
-            }else {
-                return new Legend("Бесполезная легенда.");
+                EventManage.addEvent(new Legend());
             }
         };
-        Kid[] witnesses = {vintik, shpuntik, citizen, bublick, znayka};
-        EventLibrary eventLibrary = new EventLibrary(witnesses);
-        citizen.update(ableToCreateLegend.createLegend());
+        ableToCreateLegend.createLegend();
         OnceStoryObject balloon = new OnceStoryObject(){
             @Override
             public Object getRemembrance(){
                 return new OnceStoryObject.Balloon();
             }
         };
-        ableToUpdate.update(balloon);
-        eventLibrary.addEvent(balloon.getRemembrance());
+        EventManage.addEvent(balloon.getRemembrance());
         vintik.setLocation(Location.GREENTOWN);
         shpuntik.setLocation(Location.GREENTOWN);
         Kid[] passengers = {vintik, shpuntik};
-        bublick.driveWith(passengers, eventLibrary);
-        znayka.find(citizen, eventLibrary);
+        bublick.driveWith(passengers);
+        znayka.find(citizen);
 
     }
 
