@@ -3,12 +3,11 @@ package kids;
 import enums.Location;
 import exceptions.InvalidParameterException;
 import exceptions.NoLegendException;
-import interfaces.AbleToUpdate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class Kid implements AbleToUpdate{
+public abstract class Kid{
     private String name;
     private Location location;
     private String[] memory;
@@ -24,15 +23,6 @@ public abstract class Kid implements AbleToUpdate{
             throw new InvalidParameterException("Вы забыли указать родной город");
         }else {
             this.location = location;
-        }
-    }
-
-    @Override
-    public void update(Object o) throws InvalidParameterException{
-        if(o == null){
-            throw new InvalidParameterException("Записываем в память пустоту...");
-        }else {
-            this.myMemory.add(o);
         }
     }
 
@@ -78,6 +68,7 @@ public abstract class Kid implements AbleToUpdate{
 
 
     }
+
 
     @Override
     public boolean equals(Object o) {
