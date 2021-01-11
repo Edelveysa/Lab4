@@ -2,6 +2,9 @@ package kids;
 
 import enums.Location;
 import interfaces.AbleToFind;
+import interfaces.AbleToUpdate;
+import interfaces.EventManage;
+import story.OnceStoryObject;
 import story.Story;
 import java.util.Arrays;
 import java.util.Objects;
@@ -10,6 +13,15 @@ public class Mechanic extends Kid implements AbleToFind {
 
     public Mechanic(String name, Location location) {
         super(name, location);
+        AbleToUpdate able = new AbleToUpdate() {
+            @Override
+            public void update(Object event) {
+                if(event instanceof Citizen || event instanceof OnceStoryObject.Balloon){
+                    Mechanic.this.getMyMemory().add(event);
+                }
+            }
+        };
+        EventManage.addSubscriber(able);
     }
 
     @Override
