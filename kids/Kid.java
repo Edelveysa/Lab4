@@ -14,7 +14,7 @@ public abstract class Kid{
     private ArrayList<Object> myMemory = new ArrayList<Object>();
 
     public Kid(String name, Location location)throws InvalidParameterException{
-        if(name == null){
+        if(name.equals(null)){
             throw new InvalidParameterException("Вы забыли задать имя");
         }else{
             this.name = name;
